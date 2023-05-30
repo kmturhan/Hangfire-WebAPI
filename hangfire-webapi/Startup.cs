@@ -26,7 +26,8 @@ namespace hangfire_webapi
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddHangfire(x => x.UseSqlServerStorage("Server=.;Database=hangfire-db;User Id=hangfire-user;Password=asd..123"));
+			string connectionString = Configuration.GetSection("ConnectionString").Value;
+			services.AddHangfire(x => x.UseSqlServerStorage(connectionString));
 			services.AddHangfireServer();
 			services.AddControllers();
 		}
