@@ -2,6 +2,7 @@ using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +36,17 @@ namespace hangfire_webapi
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			var supportedCultures = new string[] { "en-GB", "en-US"};
+			app.UseRequestLocalization(options =>
+						options
+						.AddSupportedCultures(supportedCultures)
+						.AddSupportedUICultures(supportedCultures)
+						.SetDefaultCulture("en-US")
+						.RequestCultureProviders.Insert(0, new CustomRequestCultureProvider(context =>
+						{
+							return Task.FromResult(new ProviderCultureResult("en-US"));
+						}))
+				);
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
