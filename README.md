@@ -1,5 +1,5 @@
 # Hangfire
-In web applications need tasks to work continuously at certain times but web applications work on requests. So we can't start a task without triggering. We can do it with Hangfire
+In web applications need tasks to work continuously at certain times but web applications work on requests. So we can't start a task without triggering. We can do it with Hangfire.
 
 # Hangfire-WebAPI
 I developed a simple web application to try Hangfire
